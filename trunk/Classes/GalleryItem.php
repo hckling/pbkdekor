@@ -1,5 +1,5 @@
 <?php
-	include '..\Interfaces\IGuiItem.php';
+	require_once dirname(__FILE__) . '/../Interfaces/IGuiElement.php';
 	
 	class GalleryItemType
 	{

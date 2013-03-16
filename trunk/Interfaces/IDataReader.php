@@ -1,7 +1,7 @@
 <?php
-	include '../Classes/GalleryItem.php';
-	include '../Classes/NewsItem.php';
-	include '../Classes/Comment.php';
+	require_once dirname(__FILE__) . '/../Classes/GalleryItem.php';
+	require_once dirname(__FILE__) . '/../Classes/NewsItem.php';
+	require_once dirname(__FILE__) . '/../Classes/Comment.php';
 
 	interface IDataReader
 	{

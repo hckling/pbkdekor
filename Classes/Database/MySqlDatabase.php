@@ -1,6 +1,6 @@
 <?php
-	include '../../Interface/IDataStorer.php';
-	include '../../Interface/IDataReader.php';
+	require_once dirname(__FILE__) . '/../../Interfaces/IDataStorer.php';
+	require_once dirname(__FILE__) . '/../../Interfaces/IDataReader.php';
 	
 	class MySqlDatabase implements IDataStorer, IDataReader
 	{
@@ -8,18 +8,18 @@
 		private $username;
 		private $password;
 		
-		MySqlDatabase($server, $username, $password)
+		function __construct($server, $username, $password)
 		{
-			$this->$server = $server;
-			$this->$username = $username;
-			$this->$password = $password;
+			$this->server = $server;
+			$this->username = $username;
+			$this->password = $password;
 			
-			createAdminUserIfMissing();
+			$this->createAdminUserIfMissing();
 		}
 		
 		private function connect()
 		{
-			mysql_connect($this->$server, $this->$username, $this->$password);
+			mysql_connect($this->server, $this->username, $this->password);
 			mysql_select_db("pbkdekor") or die ("Unable to select database pbkdekor");
 		}
 		
@@ -30,14 +30,14 @@
 		
 		private function createAdminUserIfMissing()
 		{
-			connect();
+			$this->connect();
 			$userCount = mysql_query("select count('ID') from Users");
-			close();
+			$this->close();
 			
 			if ($userCount = 0)
 			{
-				saveUser("Daniel", "Kling", "babie0d5", "daniel.kling@gmail.come", true);
-			}			
+				$this->createUser("Daniel", "Kling", "babie0d5", "daniel.kling@gmail.come", true);
+			}
 		}
 		
 		private function encodePassword($password)
@@ -49,10 +49,14 @@
 		// IDataStorer
 		
 		// Saves a new user to the data store
-		public function saveUser($firstName, $lastName, $email, $password, $isAdmin)
+		public function createUser($firstName, $lastName, $email, $password, $isAdmin)
 		{
+			$this->connect();
+			
 			$query = "insert into Users values ('', ". $name . ", " . $lastName . ", " . encodePassword($password) . ", " . $email . ", " . $isAdmin . ")";
 			mysql_query($query);
+			
+			$this->close();
 		}		
 		
 		// Saves a new gallery item comment

@@ -31,10 +31,14 @@
 		private function createAdminUserIfMissing()
 		{
 			$this->connect();
-			$userCount = mysql_query("select count('ID') from Users");
+			$result = mysql_query("select count(*) from Users");
+			$row = mysql_fetch_assoc($result);
+			$userCount = $row['count(*)'];
 			$this->close();
 			
-			if ($userCount = 0)
+			echo "Number of users: $userCount";
+			
+			if ($userCount == 0)
 			{
 				$this->createUser("Daniel", "Kling", "babie0d5", "daniel.kling@gmail.come", true);
 			}
@@ -53,7 +57,8 @@
 		{
 			$this->connect();
 			
-			$query = "insert into Users values ('', ". $name . ", " . $lastName . ", " . encodePassword($password) . ", " . $email . ", " . $isAdmin . ")";
+			$query = "insert into users values (null, '$firstName', '$lastName', '" . $this->encodePassword($password) . "', '$email', $isAdmin)";
+			echo "<br>" . $query;
 			mysql_query($query);
 			
 			$this->close();

@@ -6,7 +6,7 @@
 	interface IDataStorer
 	{
 		// Saves a new user to the data store
-		public function saveUser($name, $email, $password);
+		public function saveUser($name, $email, $password, $isAdmin);
 		
 		// Saves a new gallery item comment
 		public function saveGalleryItemComment($galleryItemId, $text, $username, $email);

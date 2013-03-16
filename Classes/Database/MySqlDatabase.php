@@ -4,12 +4,55 @@
 	
 	class MySqlDatabase implements IDataStorer, IDataReader
 	{
+		private $server;
+		private $username;
+		private $password;
+		
+		MySqlDatabase($server, $username, $password)
+		{
+			$this->$server = $server;
+			$this->$username = $username;
+			$this->$password = $password;
+			
+			createAdminUserIfMissing();
+		}
+		
+		private function connect()
+		{
+			mysql_connect($this->$server, $this->$username, $this->$password);
+			mysql_select_db("pbkdekor") or die ("Unable to select database pbkdekor");
+		}
+		
+		private function close()
+		{
+			mysql_close();
+		}
+		
+		private function createAdminUserIfMissing()
+		{
+			connect();
+			$userCount = mysql_query("select count('ID') from Users");
+			close();
+			
+			if ($userCount = 0)
+			{
+				saveUser("Daniel", "Kling", "babie0d5", "daniel.kling@gmail.come", true);
+			}			
+		}
+		
+		private function encodePassword($password)
+		{
+			// TODO: Implement some kind of encryption
+			return $password;
+		}
+		
 		// IDataStorer
 		
 		// Saves a new user to the data store
-		public function saveUser($name, $email, $password)
+		public function saveUser($firstName, $lastName, $email, $password, $isAdmin)
 		{
-			// TODO: Implement
+			$query = "insert into Users values ('', ". $name . ", " . $lastName . ", " . encodePassword($password) . ", " . $email . ", " . $isAdmin . ")";
+			mysql_query($query);
 		}		
 		
 		// Saves a new gallery item comment

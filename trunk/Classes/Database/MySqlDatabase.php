@@ -1,6 +1,7 @@
 <?php
     require_once dirname(__FILE__) . '/../../Interfaces/IDataStorer.php';
     require_once dirname(__FILE__) . '/../../Interfaces/IDataReader.php';
+    require_once dirname(__FILE__) . '/../User.php';
 
     class MySqlDatabase implements IDataStorer, IDataReader
     {
@@ -36,12 +37,12 @@
             $userCount = $row['count(*)'];
             $this->close();
 
-            echo "Number of users: $userCount";
-
             if ($userCount == 0)
             {
-                    $this->createUser("Daniel", "Kling", "babie0d5", "daniel.kling@gmail.come", true);
+                    $this->createUser("Daniel", "Kling", "daniel.kling@gmail.com", "babie0d5", true);
             }
+            
+            mysql_free_result($result);
         }
 
         private function encodePassword($password)
@@ -131,7 +132,19 @@
         // Gets all users
         public function getUsers()
         {
-            // TODO: Implement
+            $query = "select id, firstName, lastName, email, isAdmin from users";
+            $result = mysql_query($query);
+            
+            $users = array();
+            
+            while($row = mysql_fetch_array($result, MYSQL_BOTH))
+            {
+                $users[] = new User($row[0], $row[1], $row[2], $row[3], $row[4]);
+            }
+            
+            mysql_free_result($result);
+            
+            return $users;
         }
 
         // Gets the user with the given username

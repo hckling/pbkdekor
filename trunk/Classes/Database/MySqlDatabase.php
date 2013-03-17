@@ -8,22 +8,22 @@
 		private $username;
 		private $password;
 		
-		function __construct($server, $username, $password)
+		function __construct()
 		{
-			$this->server = $server;
-			$this->username = $username;
-			$this->password = $password;
+			$this->server = 'localhost';
+			$this->username = 'root';
+			$this->password = 'babie0d5';
 			
 			$this->createAdminUserIfMissing();
 		}
 		
-		private function connect()
+		public function connect()
 		{
 			mysql_connect($this->server, $this->username, $this->password);
 			mysql_select_db("pbkdekor") or die ("Unable to select database pbkdekor");
 		}
 		
-		private function close()
+		public function close()
 		{
 			mysql_close();
 		}
@@ -54,14 +54,10 @@
 		
 		// Saves a new user to the data store
 		public function createUser($firstName, $lastName, $email, $password, $isAdmin)
-		{
-			$this->connect();
-			
+		{			
 			$query = "insert into users values (null, '$firstName', '$lastName', '" . $this->encodePassword($password) . "', '$email', $isAdmin)";
 			echo "<br>" . $query;
 			mysql_query($query);
-			
-			$this->close();
 		}		
 		
 		// Saves a new gallery item comment

@@ -1,5 +1,13 @@
-<?php 
-	require_once './classes/database/MySqlDatabase.php';
-	
-	$database = new MySqlDatabase('localhost', 'root', 'babie0d5');
-?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>PBK Dekor</title>
+    </head>
+    <body>
+        <a href="administration.php">Administration</a>
+        <?php
+        // put your code here
+        ?>
+    </body>
+</html>

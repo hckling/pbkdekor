@@ -92,9 +92,15 @@
         }
 
         // Saves a new news item
-        public function saveNewsItem($text, $user, $date)
+        public function createNewsItem($header, $text, $image, $date, $userId, $language)
         {
-            // TODO: Implement
+            $query = "insert into news values ('', '$header', '$text', '$image', '$date', $userId, $language)";
+            mysql_query($query);
+        }
+        
+        public function editNewsItem($id, $header, $text, $image, $date, $user, $language)
+        {
+            
         }
 
         // Deletes a news item
@@ -104,7 +110,7 @@
         }
 
         // Saves a new gallery item
-        public function saveGalleryItem($imageName, $category)
+        public function createGalleryItem($imageName, $category)
         {
             // TODO: Implement
         }

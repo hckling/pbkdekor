@@ -10,19 +10,32 @@ and open the template in the editor.
     </head>
     <body>
         <p>
+            Skapa användare<br>
             <form name="createUser" action="php\register_user.php" method="get">
-                Förnamn: <input type="text" name="firstname"><br>
-                Efternamn: <input type="text" name="lastname"><br>
-                Email: <input type="text" name="email"><br>
-                Lösenord: <input type="password" name="password"><br>
-                Repetera lösenord: <input type="password" name="repeatedPassword" label="Repetera lösenord"><br>
-                Admin: <input type="checkbox" name="isAdmin"><br>
+                <label for="firstname">Förnamn:<label>
+                <input type="text" name="firstname"><br>
+                
+                <label for="lastname">Efternamn:<label>
+                <input type="text" name="lastname"><br>
+                
+                <label for="email">Email:<label>
+                <input type="text" name="email"><br>
+                
+                <label for="password">Lösenord:<label>
+                <input type="password" name="password"><br>
+                
+                <label for="repeatedPassword">Repetera lösenord:<label>
+                <input type="password" name="repeatedPassword" label="Repetera lösenord"><br>
+                
+                <label for="firstname">Admin:<label>
+                <input type="checkbox" name="isAdmin"><br>
+            
                 <input type="hidden" name="returnAddress" value="../administration.php" visible="false"/>
                 <input type="submit" value="Skapa användare">
             </form>
         </p>
         <p>
-            Existing users:<br>
+            Existerande användare<br>
             <?php
                 require_once './classes/database/MySqlDatabase.php';
 
@@ -45,6 +58,19 @@ and open the template in the editor.
 
                 unset($database);
             ?>
+        </p>
+        <p>
+            Skapa nyhet<br>
+            <form name="createUser" action="php\create_newsitem.php" method="post" enctype="multipart/form-data">
+                <label for="header">Rubrik:<label>
+                <input type="text" name="header"><br>
+                <label for="text">Text:</label>
+                <textarea rows="10" name="text"></textarea><br>
+                <label for="image">Bild:<label>
+                <input type="file" name="image"><br>
+                <input type="hidden" name="returnAddress" value="../administration.php" visible="false"/>
+                <input type="submit" value="Skapa nyhet">
+            </form>
         </p>
     </body>
 </html>

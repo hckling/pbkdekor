@@ -24,13 +24,16 @@
         public function deleteNewsItemComment($id);
 
         // Saves a new news item
-        public function saveNewsItem($text, $user, $date);
+        public function createNewsItem($header, $text, $image, $date, $user, $language);
+        
+        // Edits an existing news item
+        public function editNewsItem($id, $header, $text, $image, $date, $user, $language);
 
         // Deletes a news item
         public function deleteNewsItem($id);
 
         // Saves a new gallery item
-        public function saveGalleryItem($imageName, $category);
+        public function createGalleryItem($imageName, $category);
 
         // Deletes a gallery item
         public function deleteGalleryItem($id);

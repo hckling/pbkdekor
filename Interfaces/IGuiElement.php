@@ -1,6 +1,6 @@
 <?php
-	interface IGuiElement
-	{
-		public function getHtml();
-	}
+    interface IGuiElement
+    {
+        public function getHtml();
+    }
 ?>

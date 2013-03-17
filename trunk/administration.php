@@ -32,16 +32,16 @@ and open the template in the editor.
                 $users = $database->getUsers();
                 $database->close();
 
-                echo "<form name=\"deleteUser\" action=\"php/delete_user.php\" method=\"get\">";
+                echo "<form name=\"deleteUser\" action=\"php/delete_user.php\" method=\"get\">\n";
 
                 foreach ($users as $user)
                 {
                     $id = $user->getId();
-                    echo $user->getHtml() . " <input type=\"submit\" name=\"$id\" value=\"Radera\">" . "<br>";
+                    echo "\t\t" . $user->getHtml() . " <input type=\"submit\" name=\"$id\" value=\"Radera\">" . "<br>\n";
                     //unset($user);
                 }
-                echo "<input type=\"hidden\" name=\"returnAddress\" value=\"../administration.php\" visible=\"false\"/>";
-                echo "</form>";
+                echo "\t\t<input type=\"hidden\" name=\"returnAddress\" value=\"../administration.php\" visible=\"false\"/>\n";
+                echo "</form>\n";
 
                 unset($database);
             ?>

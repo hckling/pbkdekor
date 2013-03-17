@@ -19,7 +19,21 @@ and open the template in the editor.
             <input type="submit" value="Skapa användare">
         </form>
         <?php
-        // put your code here
+            require_once './classes/database/MySqlDatabase.php';
+            
+            $database = new MySqlDatabase();
+            
+            $database->open();
+            $users = $database->getUsers();
+            $database->close();
+            
+            foreach ($users as $user)
+            {
+                echo $user->getHtml() . "<br>";
+                //unset($user);
+            }
+            
+            unset($database);
         ?>
     </body>
 </html>

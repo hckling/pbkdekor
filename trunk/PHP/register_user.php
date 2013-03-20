@@ -18,7 +18,7 @@
     unset($user);
 
     // Read the return address
-    // $address = $_GET["returnAddress"];
+    $address = $_GET["returnAddress"];
     // Return to previous page
-    // header( "Location: $address");
+    header( "Location: $address");
 ?>

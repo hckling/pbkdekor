@@ -12,11 +12,11 @@ and open the template in the editor.
         <p>
             Skapa användare<br>
             <form name="createUser" action="php\register_user.php" method="get">
-                <label for="firstname">Förnamn:<label>
-                <input type="text" name="firstname"><br>
+                <label for="editFirstname">Förnamn:<label>
+                <input type="text" name="firstname" id="editFirstname"><br>
                 
-                <label for="lastname">Efternamn:<label>
-                <input type="text" name="lastname"><br>
+                <label for="editLastname">Efternamn:<label>
+                <input type="text" name="lastname" id="editLastname"><br>
                 
                 <label for="email">Email:<label>
                 <input type="text" name="email"><br>

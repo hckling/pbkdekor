@@ -39,7 +39,7 @@
 
             if ($userCount == 0)
             {
-                    $this->createUser("Daniel", "Kling", "daniel.kling@gmail.com", "babie0d5", true);
+                    $this->addUser("Daniel", "Kling", "daniel.kling@gmail.com", "babie0d5", true);
             }
             
             mysql_free_result($result);
@@ -54,10 +54,11 @@
         // IDataStorer
 
         // Saves a new user to the data store
-        public function createUser($firstName, $lastName, $email, $password, $isAdmin)
+        public function addUser(User $user)
         {			
-            $query = "insert into users values (null, '$firstName', '$lastName', '" . $this->encodePassword($password) . "', '$email', $isAdmin)";
+            $query = "insert into users values (null, '$user->getFirstName()', '$lastName', '" . $this->encodePassword($password) . "', '$email', $isAdmin)";
             mysql_query($query);
+            $user->setId(mysql_insert_id());
         }
 
         // Deletes the user with the given id
@@ -68,7 +69,7 @@
         }
 
         // Saves a new gallery item comment
-        public function saveGalleryItemComment($galleryItemId, $text, $username, $email)
+        public function storeGalleryItemComment($galleryItemId, Comment $comment)
         {
             // TODO: Implement
         }
@@ -80,7 +81,7 @@
         }
 
         // Saves a news item comment
-        public function saveNewsItemComment($newsItemId, $text, $username, $email)
+        public function storeNewsItemComment($newsItemId, Comment $comment)
         {
             // TODO: Implement
         }
@@ -92,13 +93,14 @@
         }
 
         // Saves a new news item
-        public function createNewsItem($header, $text, $image, $date, $userId, $language)
+        public function storeNewsItem(NewsItem $newsItem)
         {
-            $query = "insert into news values ('', '$header', '$text', '$image', '$date', $userId, $language)";
+            $query = "insert into news values ('', '$newsItem->getHeader()', '$newsItem->getText()', '$newsItem->getImageName()', '$newsItem->getDate()', $newsItem->getUserId(), $newsItem->getLanguage())";
             mysql_query($query);
+            $newsItem->setId(mysql_insert_id());
         }
         
-        public function editNewsItem($id, $header, $text, $image, $date, $user, $language)
+        public function editNewsItem(NewsItem $newsItem)
         {
             
         }
@@ -110,7 +112,7 @@
         }
 
         // Saves a new gallery item
-        public function createGalleryItem($imageName, $category)
+        public function storeGalleryItem(GalleryItem $galleryItem)
         {
             // TODO: Implement
         }
@@ -145,7 +147,7 @@
             
             while($row = mysql_fetch_array($result, MYSQL_BOTH))
             {
-                $users[] = new User($row[0], $row[1], $row[2], $row[3], $row[4]);
+                $users[] = new User($row[0], $row[1], $row[2], $row[3], '', $row[4]);
             }
             
             mysql_free_result($result);
@@ -154,9 +156,14 @@
         }
 
         // Gets the user with the given username
-        public function getUser($username)
+        public function getUser($id)
         {
-            // TODO: Implement
+            $query = "select * from Users where id=$id";
+            $result = mysql_query($query);
+            $row = mysql_fetch_row($result);
+            $user = new User($row[0], $row[1], $row[2], $row[3], $row[4]);
+            
+            return $user;
         }
     }
 

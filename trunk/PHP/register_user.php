@@ -6,13 +6,16 @@
     else
         $isAdmin = 0;
     
+    $user = new User(-1, $_GET["firstname"], $_GET["lastname"], $_GET["email"], $_GET["password"], $isAdmin);
+    
     $database = new MySqlDatabase();
    
     $database->open();
-    $database->createUser($_GET["firstname"], $_GET["lastname"], $_GET["email"], $_GET["password"], $isAdmin);        
+    $database->addUser($user);        
     $database->close();
     
     unset($database);
+    unset($user);
 
     // Read the return address
     $address = $_GET["returnAddress"];

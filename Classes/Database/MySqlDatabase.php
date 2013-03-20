@@ -95,9 +95,20 @@
         // Saves a new news item
         public function storeNewsItem(NewsItem $newsItem)
         {
-            $query = "insert into news values ('', '$newsItem->getHeader()', '$newsItem->getText()', '$newsItem->getImageName()', '$newsItem->getDate()', $newsItem->getUserId(), $newsItem->getLanguage())";
+            $query = "insert into news values ('', '" . 
+                    $newsItem->getHeader() . "', '" . 
+                    $newsItem->getText() . "', '" .
+                    $newsItem->getImageName() . "', '" .
+                    $newsItem->getDate() . "', " .
+                    $newsItem->getUserId() . ", " . 
+                    $newsItem->getLanguage() . ")";
             mysql_query($query);
+            
+            echo $query . '<br>';
+            
             $newsItem->setId(mysql_insert_id());
+            
+            echo $newsItem->getId();
         }
         
         public function editNewsItem(NewsItem $newsItem)
@@ -158,10 +169,10 @@
         // Gets the user with the given username
         public function getUser($id)
         {
-            $query = "select * from Users where id=$id";
+            $query = "select id, firstName, lastName, email, isAdmin from Users where id=$id";
             $result = mysql_query($query);
             $row = mysql_fetch_row($result);
-            $user = new User($row[0], $row[1], $row[2], $row[3], $row[4]);
+            $user = new User($row[0], $row[1], $row[2], $row[3], '', $row[4]);
             
             return $user;
         }

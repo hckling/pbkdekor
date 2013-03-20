@@ -56,21 +56,48 @@ and open the template in the editor.
                 echo "\t\t<input type=\"hidden\" name=\"returnAddress\" value=\"../administration.php\" visible=\"false\"/>\n";
                 echo "</form>\n";
 
+                unset($users);
                 unset($database);
             ?>
         </p>
         <p>
             Skapa nyhet<br>
             <form name="createUser" action="php\create_newsitem.php" method="post" enctype="multipart/form-data">
-                <label for="header">Rubrik:<label>
+                <label for="header">Rubrik:</label>
                 <input type="text" name="header"><br>
                 <label for="text">Text:</label>
                 <textarea rows="10" name="text"></textarea><br>
-                <label for="image">Bild:<label>
+                <label for="image">Bild:</label>
                 <input type="file" name="image"><br>
                 <input type="hidden" name="returnAddress" value="../administration.php" visible="false"/>
                 <input type="submit" value="Skapa nyhet">
             </form>
+        </p>
+        <p>
+            Nyheter:<br>
+            <?php
+                require_once './classes/database/MySqlDatabase.php';
+
+                $database = new MySqlDatabase();
+
+                $database->open();
+                $newsItems = $database->getNewsItems();
+                $database->close();
+
+                echo "<form name=\"deleteUser\" action=\"php/modify_newsItem.php\" method=\"get\">\n";
+
+                foreach ($newsItems as $newsItem)
+                {
+                    $id = $newsItem->getId();
+                    echo "\t\t" . $newsItem->getHtml() . " <input type=\"submit\" name=\"$id\" value=\"Radera\">" . "<br>\n";
+                    //unset($user);
+                }
+                echo "\t\t<input type=\"hidden\" name=\"returnAddress\" value=\"../administration.php\" visible=\"false\"/>\n";
+                echo "</form>\n";
+
+                unset($newsItems);
+                unset($database);
+            ?>
         </p>
     </body>
 </html>

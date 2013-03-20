@@ -24,11 +24,11 @@
         
         public function getHtml()
         {
-            $html = "</table>\n" .
+            $html = "<table>\n" .
                         "<tr><td>$this->header</td></tr>\n" .
                         "<tr><td>$this->text</td></tr>\n" .
                         "<tr><td><image src=\"newsImages/$this->imageName\"/>\n" .
-                        "<tr><td>$this->user->getUserName()</td><td>$this->date</td></tr>\n" .
+                        "<tr><td>" . $this->user->getFullName() . "</td><td>$this->date</td></tr>\n" .
                     "</table>";
                         
             return $html;

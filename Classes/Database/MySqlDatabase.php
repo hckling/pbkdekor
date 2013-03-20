@@ -145,7 +145,26 @@
         // Gets all news items including comments
         public function getNewsItems()
         {
-            // TODO: Implement
+            $query = "select id, header, text, image, date, language, userId from news";
+            $result = mysql_query($query);
+            
+            $newsItems = array();
+            $users = $this->getUsers();
+            
+            while($row = mysql_fetch_array($result, MYSQL_BOTH))
+            {
+                foreach($users as $user)
+                {
+                    if ($user->getId() === $row[6])
+                    {
+                        $newsItems[] = new NewsItem($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $user);
+                    }
+                }
+            }
+            
+            mysql_free_result($result);
+            
+            return $newsItems;
         }
 
         // Gets all users

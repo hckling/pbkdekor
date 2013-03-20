@@ -15,6 +15,6 @@
         public function getUsers();
 
         // Gets the user with the given username
-        public function getUser($username);
+        public function getUser($id);
     }	
 ?>

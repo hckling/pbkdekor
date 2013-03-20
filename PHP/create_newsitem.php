@@ -24,10 +24,14 @@
     }
     
     $database = new MySqlDatabase();    
-    $database->open();    
-    $database->createNewsItem($_POST["header"], $_POST["text"], $filename, date('Y-m-d H:i:s'), 2, 1);    
-    $database->close();    
+    $database->open(); 
+    
+    $user = $database->getUser(2); // TODO: This needs to be changed so the logged in user is used.
+    $newsItem = new NewsItem(-1, $_POST["header"], $_POST["text"], $filename, date('Y-m-d H:i:s'), 1, $user);
+    $database->storeNewsItem($newsItem);
+    $database->close();
     unset($database);
+    unset($newsItem);
     
     // Read the return address
     $address = $_POST["returnAddress"];

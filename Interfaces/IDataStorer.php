@@ -6,34 +6,34 @@
     interface IDataStorer
     {
         // Saves a new user to the data store
-        public function createUser($firstName, $lastName, $email, $password, $isAdmin);
+        public function addUser(User $user);
 
         // Delete the user with the given id
         public function deleteUser($id);
 
         // Saves a new gallery item comment
-        public function saveGalleryItemComment($galleryItemId, $text, $username, $email);
+        public function storeGalleryItemComment($galleryItemId, Comment $comment);
 
         // Delete a gallery item comment
         public function deleteGalleryItemComment($id);
 
         // Saves a news item comment
-        public function saveNewsItemComment($newsItemId, $text, $username, $email);
+        public function storeNewsItemComment($newsItemId, Comment $comment);
 
         // Delete news item comment
         public function deleteNewsItemComment($id);
 
         // Saves a new news item
-        public function createNewsItem($header, $text, $image, $date, $user, $language);
+        public function storeNewsItem(NewsItem $newsItem);
         
         // Edits an existing news item
-        public function editNewsItem($id, $header, $text, $image, $date, $user, $language);
+        public function editNewsItem(NewsItem $newsItem);
 
         // Deletes a news item
         public function deleteNewsItem($id);
 
         // Saves a new gallery item
-        public function createGalleryItem($imageName, $category);
+        public function storeGalleryItem(GalleryItem $galleryItem);
 
         // Deletes a gallery item
         public function deleteGalleryItem($id);

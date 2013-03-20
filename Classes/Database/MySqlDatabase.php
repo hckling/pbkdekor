@@ -56,7 +56,7 @@
         // Saves a new user to the data store
         public function addUser(User $user)
         {			
-            $query = "insert into users values (null, '$user->getFirstName()', '$lastName', '" . $this->encodePassword($password) . "', '$email', $isAdmin)";
+            $query = "insert into users values (null, '" . $user->getFirstName() . "', '" . $user->getLastName() . "', '" . $this->encodePassword($user->getPassword()) . "', '" . $user->getEmail() . "', '" . $user->getIsAdmin() . "')";
             mysql_query($query);
             $user->setId(mysql_insert_id());
         }

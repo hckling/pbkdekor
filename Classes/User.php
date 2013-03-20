@@ -53,5 +53,7 @@
         {
             return $this->isAdmin;
         }
+        
+        public function getPassword() { return $this->password; }
     }
 ?>

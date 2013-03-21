@@ -113,13 +113,21 @@
         
         public function editNewsItem(NewsItem $newsItem)
         {
+            $query="update news set " . 
+                    "header='" . $newsItem->getHeader() . "', " . 
+                    "text='" . $newsItem->getText() . "', " . 
+                    "image='" . $newsItem->getImageName() . "', " .
+                    "language=" . $newsItem->getLanguage() . " " .
+                    "where id=" . $newsItem->getId();
             
+            mysql_query($query);
         }
 
         // Deletes a news item
         public function deleteNewsItem($id)
         {
-            // TODO: Implement
+            $query="delete from news where id=$id";
+            mysql_query($query);
         }
 
         // Saves a new gallery item

@@ -84,16 +84,19 @@ and open the template in the editor.
                 $newsItems = $database->getNewsItems();
                 $database->close();
 
-                echo "<form name=\"deleteUser\" action=\"php/modify_newsItem.php\" method=\"get\">\n";
-
                 foreach ($newsItems as $newsItem)
                 {
                     $id = $newsItem->getId();
-                    echo "\t\t" . $newsItem->getHtml() . " <input type=\"submit\" name=\"$id\" value=\"Radera\">" . "<br>\n";
+                    echo "\t\t" . $newsItem->getHtml() . "\n";
+                    echo "<form name=\"modifyNewsItem$id\" action=\"php/modify_newsItem.php\" method=\"post\" enctype=\"multipart/form-data\">\n";
+                    echo "<input type=\"hidden\" name=\"newsItemId\" value=\"$id\"/>\n";
+                    echo "<input type=\"submit\" name=\"btnDelete\" value=\"Radera\"/>\n";
+                    echo "<input type=\"submit\" name=\"btnEdit\" value=\"Redigera\"/>\n";
+                    echo "<input type=\"hidden\" name=\"returnAddress\" value=\"../administration.php\" visible=\"false\"/>\n";
+                    echo "</form>\n";
+                    echo "<br>";
                     //unset($user);
                 }
-                echo "\t\t<input type=\"hidden\" name=\"returnAddress\" value=\"../administration.php\" visible=\"false\"/>\n";
-                echo "</form>\n";
 
                 unset($newsItems);
                 unset($database);

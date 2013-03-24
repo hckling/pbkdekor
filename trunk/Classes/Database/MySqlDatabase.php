@@ -174,6 +174,15 @@
             
             return $newsItems;
         }
+        
+        public function getNewsItem($id)
+        {
+            $query = "select id, header, text, image, date, language, userId from news where id='$id'";
+            $result = mysql_query($query);
+            $row = mysql_fetch_row($result);
+            
+            return new NewsItem($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $this->getUser($row[6]));            
+        }
 
         // Gets all users
         public function getUsers()
